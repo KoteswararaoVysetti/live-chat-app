@@ -1,0 +1,51 @@
+{
+  "name": "live-chat-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --quiet --fix",
+    "format": "prettier --write .",
+    "lint-staged": "lint-staged",
+    "type-check": "tsc --skipLibCheck"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "npm run lint"
+    ],
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss}": [
+      "npm run format"
+    ]
+  },
+  "dependencies": {
+    "@types/jsonwebtoken": "^9.0.9",
+    "axios": "^1.8.3",
+    "bcryptjs": "^3.0.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.12.1",
+    "next": "15.2.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "15.2.1",
+    "eslint-plugin-react": "^7.37.4",
+    "lint-staged": "^15.2.10",
+    "postcss": "^8",
+    "husky": "^9.1.6",
+    "prettier": "3.3.3",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "tailwind-merge": "^2.5.3",
+    "typescript-eslint": "^8.6.0"
+  }
+}
