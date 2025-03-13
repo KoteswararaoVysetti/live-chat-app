@@ -1,7 +1,7 @@
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
-  darkMode: 'class',
+  darkMode: ['class'],
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -18,7 +18,6 @@ const config: Config = {
         karla: ['var(--font-karla)'],
         nunito: ['var(--font-nunito)'],
       },
-
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
@@ -64,26 +63,6 @@ const config: Config = {
           '3': 'hsl(var(--chart-3))',
           '4': 'hsl(var(--chart-4))',
           '5': 'hsl(var(--chart-5))',
-        },
-        vokal: {
-          'prussian-blue': 'var(--prussian-blue)',
-          'chinese-orange': 'var(--chinese-orange)',
-          'azureish-white': {
-            DEFAULT: 'var(--azureish-white)',
-            lite: 'var(--azureish-white-lite)',
-          },
-          'check-green': 'var(--check-green)',
-          'outer-space': 'var(--outer-space)',
-          'han-blue': 'var(--han-blue)',
-          'icon-gray': 'var(--auro-metal-saurus)',
-          'grad-blue': 'rgba(222, 237, 255, 1)',
-          'grad-pink': 'rgba(255, 233, 226, 1)',
-          mongolia: 'var(--mongolia)',
-          'link-water': 'var(--link-water)',
-          warning: {
-            DEFAULT: 'rgba(227, 171, 50, 1)',
-            foreground: 'rgba(255, 246, 227, 1)',
-          },
         },
         surface: {
           container: {

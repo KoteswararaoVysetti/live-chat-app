@@ -10,7 +10,8 @@
     "lint:fix": "eslint src --quiet --fix",
     "format": "prettier --write .",
     "lint-staged": "lint-staged",
-    "type-check": "tsc --skipLibCheck"
+    "type-check": "tsc --skipLibCheck",
+    "prepare": "husky"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [
@@ -21,14 +22,27 @@
     ]
   },
   "dependencies": {
+    "@hookform/resolvers": "^4.1.3",
+    "@radix-ui/react-icons": "^1.3.2",
+    "@radix-ui/react-label": "^2.1.2",
+    "@radix-ui/react-slot": "^1.1.2",
     "@types/jsonwebtoken": "^9.0.9",
     "axios": "^1.8.3",
     "bcryptjs": "^3.0.2",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "jsonwebtoken": "^9.0.2",
+    "lucide-react": "^0.479.0",
     "mongoose": "^8.12.1",
     "next": "15.2.1",
+    "next-themes": "^0.4.6",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-hook-form": "^7.54.2",
+    "sonner": "^2.0.1",
+    "tailwindcss-animate": "^1.0.7",
+    "tailwindcss-scrollbar": "^0.1.0",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -39,13 +53,13 @@
     "eslint": "^9",
     "eslint-config-next": "15.2.1",
     "eslint-plugin-react": "^7.37.4",
+    "husky": "^9.1.6",
     "lint-staged": "^15.2.10",
     "postcss": "^8",
-    "husky": "^9.1.6",
     "prettier": "3.3.3",
-    "tailwindcss": "^4",
+    "tailwind-merge": "^3.0.2",
+    "tailwindcss": "^3.4.1",
     "typescript": "^5",
-    "tailwind-merge": "^2.5.3",
     "typescript-eslint": "^8.6.0"
   }
 }

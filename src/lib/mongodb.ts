@@ -9,12 +9,15 @@ if (!MONGODB_URI) {
 /**
  * Cached connection for MongoDB.
  */
+
 let cached: {
   conn?: Mongoose | null;
   promise?: Promise<Mongoose> | null;
+  // @ts-expect-error: expecting the mongoose is available in global this
 } = global.mongoose;
 
 if (!cached) {
+  // @ts-expect-error: saving the connection details in global this
   cached = global.mongoose = { conn: null, promise: null };
 }
 
