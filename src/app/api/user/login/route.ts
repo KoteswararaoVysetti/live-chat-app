@@ -1,9 +1,10 @@
-import User from '@/database/models/user';
+import UserModel from '@/database/models/user-model';
 import { NextRequest, NextResponse } from 'next/server';
 import bcryptjs from 'bcryptjs';
 import dbConnect from '@/lib/mongodb';
 import { TokenPayload } from '@/types/token-payload';
 import { generateToken } from '@/lib/token-helpers';
+import { User } from '@/types/domain/user';
 
 export async function POST(request: NextRequest) {
   try {
@@ -12,9 +13,9 @@ export async function POST(request: NextRequest) {
     const { username, password } = reqBody;
     console.log(reqBody);
     //check if user exists
-    const user = await User.findOne({ username });
+    const user = await UserModel.findOne<User>({ username });
     console.log(user);
-    if (!user) {
+    if (!user || user.isDeleted) {
       return NextResponse.json(
         { error: 'User does not exist' },
         { status: 400 },

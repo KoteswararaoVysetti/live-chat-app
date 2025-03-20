@@ -7,17 +7,21 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function GET(request: NextRequest) {
   try {
     await dbConnect();
+    // Extract user ID from the authentication token
+
     // Retrieve the token from the cookies
     const token = request.cookies.get('token')?.value || '';
-    // Extract user ID from the authentication token
+
     const userPayload = getDataFromToken(token);
+    if (!userPayload?.id) {
+      throw new Error('Invalid Token');
+    }
 
     // Find the user in the database based on the user ID
-    const user = await UserModel.findOne<User>({
-      _id: userPayload.id,
-      isDeleted: false,
-    }).select('-password');
-    return NextResponse.json(user);
+    const users = await UserModel.find<User[]>({ isDeleted: false }).select(
+      '-password',
+    );
+    return NextResponse.json(users);
   } catch (error) {
     return NextResponse.json(
       { error: (error as Error).message },

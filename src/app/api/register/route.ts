@@ -1,4 +1,4 @@
-import User from '@/database/models/user';
+import UserModel from '@/database/models/user-model';
 import { NextRequest, NextResponse } from 'next/server';
 import bcryptjs from 'bcryptjs';
 import dbConnect from '@/lib/mongodb';
@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
     // Parses the request body to extract username, email, and password.
     console.log(reqBody);
     //Checks if a user with the provided email already exists.
-    const user = await User.findOne({ username });
+    const user = await UserModel.findOne({ username });
 
     //If yes, returns a 400 response.
     if (user) {
@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
     const hashedPassword = await bcryptjs.hash(password, salt);
     console.log(hashedPassword);
 
-    const newUser = new User({
+    const newUser = new UserModel({
       name,
       username,
       password: hashedPassword,

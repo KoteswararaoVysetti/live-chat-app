@@ -1,6 +1,5 @@
 import { TokenPayload } from '@/types/token-payload';
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import { NextRequest } from 'next/server';
 
 export const generateToken = (payload: TokenPayload) => {
   //create token data
@@ -22,16 +21,17 @@ export const generateToken = (payload: TokenPayload) => {
   return token;
 };
 
-export const getDataFromToken = (request: NextRequest) => {
-  // Retrieve the token from the cookies
-  const token = request.cookies.get('token')?.value || '';
-
+export const getDataFromToken = (token: string) => {
   // Verify and decode the token using the secret key
   const decodedToken: JwtPayload | string = jwt.verify(
     token,
     process.env.TOKEN_SECRET!,
   );
 
+  if (typeof decodedToken === 'string') {
+    throw new Error('Invalid Token');
+  }
+
   // Return the user ID from the decoded token
-  return (decodedToken as JwtPayload).id;
+  return decodedToken as TokenPayload;
 };

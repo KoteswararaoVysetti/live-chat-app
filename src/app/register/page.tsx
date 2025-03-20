@@ -4,8 +4,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import axios, { HttpStatusCode } from 'axios';
 import { routes } from '@/lib/routes';
+import { endpoints } from '@/lib/endpoints';
 
-export default function SignupPage() {
+export default function Page() {
   const router = useRouter();
   const [user, setUser] = React.useState({
     name: '',
@@ -13,9 +14,9 @@ export default function SignupPage() {
     password: '',
   });
 
-  const onSignup = async () => {
+  const onRegister = async () => {
     try {
-      const response = await axios.post('/api/register', user);
+      const response = await axios.post(endpoints.register, user);
       if (response.status !== HttpStatusCode.Ok) {
         throw new Error('Unable to Create the User Account');
       }
@@ -52,7 +53,7 @@ export default function SignupPage() {
           onChange={(e) => setUser({ ...user, password: e.target.value })}
           placeholder="password"
         />
-        <button onClick={onSignup}>Sign Up</button>
+        <button onClick={onRegister}>Sign Up</button>
 
         <Link href={routes.login}>Visit login page</Link>
       </div>

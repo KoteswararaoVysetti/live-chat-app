@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import Metadata from './_metadata';
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -17,20 +18,10 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  isDeleted: {
-    type: Boolean,
-    default: false,
-  },
-  createdAt: {
-    type: Date,
-    default: new Date(),
-  },
-  updatedAt: {
-    type: Date,
-    default: new Date(),
-  },
 });
 
-const User = mongoose.models.user || mongoose.model('user', userSchema);
+userSchema.add(Metadata);
 
-export default User;
+const UserModel = mongoose.models.user || mongoose.model('user', userSchema);
+
+export default UserModel;

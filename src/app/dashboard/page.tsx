@@ -1,34 +1,66 @@
 'use client';
 
-import Container from '@/components/common/container';
-import ThemeSwitch from '@/components/common/theme-switch';
+import { Skeleton } from '@/components/ui/skeleton';
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import { endpoints } from '@/lib/endpoints';
 import { routes } from '@/lib/routes';
+import { User } from '@/types/domain/user';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import { toast } from 'sonner';
 
 export default function Page() {
   const router = useRouter();
-  const [data, setData] = useState('nothing');
+  const [isLoading, setLoading] = useTransition();
+  const [users, setUsers] = useState<User[]>([]);
 
-  const getUserDetails = async () => {
-    try {
-      const res = await axios.get('/api/user/info');
-      setData(res.data.data.name);
-      toast.success('Sucessfully fetched the user data');
-    } catch (err) {
-      console.error(err);
-      toast.error('Error Fetching the User');
-      router.replace(routes.login);
-    }
-  };
-  return (
-    <Container>
-      <ThemeSwitch />
-      <h1>Profile</h1>
-      <h2>{data === 'nothing' ? 'Nothing' : data}</h2>
-      <button onClick={getUserDetails}>Details</button>
-    </Container>
+  useEffect(
+    () =>
+      setLoading(async () => {
+        try {
+          const res = await axios.get(endpoints.user.all);
+          setUsers(res.data);
+          toast.success('Sucessfully fetched the user data');
+        } catch (err) {
+          console.error(err);
+          toast.error('Error Fetching the User');
+          router.replace(routes.login);
+        }
+      }),
+    [toast],
+  );
+  return isLoading ? (
+    <Skeleton className="w-full h-full" />
+  ) : (
+    <Table>
+      <TableCaption>All Users</TableCaption>
+      <TableHeader>
+        <TableRow>
+          <TableHead className="w-[100px]">User Name</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {users.map((user) => (
+          <TableRow key={user._id}>
+            <TableCell className="font-medium">{user.name}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+      {/* <TableFooter>
+          <TableRow>
+            <TableCell colSpan={3}>Total</TableCell>
+            <TableCell className="text-right">$2,500.00</TableCell>
+          </TableRow>
+        </TableFooter> */}
+    </Table>
   );
 }

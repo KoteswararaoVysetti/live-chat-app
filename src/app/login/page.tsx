@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import axios, { HttpStatusCode } from 'axios';
 import { routes } from '@/lib/routes';
+import { endpoints } from '@/lib/endpoints';
 
 export default function SignupPage() {
   const router = useRouter();
@@ -16,7 +17,7 @@ export default function SignupPage() {
   const onLogin = async () => {
     try {
       setLoading(true);
-      const response = await axios.post('/api/user/login', user);
+      const response = await axios.post(endpoints.user.login, user);
       if (response.status !== HttpStatusCode.Ok) {
         throw new Error('Unable to Login');
       }
